@@ -23,3 +23,6 @@ name = "wpg_post"
 [[bin]]
 name = "extract"
 required-features = ["extract"]
+
+[[bin]]
+name = "screenshot"
