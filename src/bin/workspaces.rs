@@ -19,7 +19,9 @@ fn main() {
                     args.extend(iter.map(|ws| ws.to_string()));
                 }
             }
-            bspc.args(args).status().expect("LUL");
+            bspc.args(args)
+                .status()
+                .expect("could not setup workspaces for {mon:#?}");
         }
     }
 }
