@@ -4,13 +4,22 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+clap = { version = "4.0.32", features = ["derive"], optional = true }
 winit = { version = "0.27", default_features = false, features = [
     "x11",
 ], optional = true }
 
 [features]
 workspaces = ["winit"]
+extract = ["clap"]
 
 [[bin]]
 name = "workspaces"
 required-features = ["workspaces"]
+
+[[bin]]
+name = "wpg_post"
+
+[[bin]]
+name = "extract"
+required-features = ["extract"]
