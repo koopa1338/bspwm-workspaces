@@ -1,7 +1,4 @@
-use std::{
-    path::PathBuf,
-    process::Command,
-};
+use std::{path::PathBuf, process::Command};
 
 use clap::Parser;
 
@@ -14,7 +11,9 @@ struct Args {
 fn main() -> std::io::Result<()> {
     let args = Args::parse();
     let archive = args.archive;
-    let binding = archive.to_str().unwrap()
+    let binding = archive
+        .to_str()
+        .unwrap()
         .split(".")
         .collect::<Vec<&str>>()
         .into_iter()
@@ -26,7 +25,7 @@ fn main() -> std::io::Result<()> {
     let (cmd, mut params) = match (extensions[1], extensions[0]) {
         ("tar", "bz2") | (_, "tbz2") => ("tar", vec!["xvjf"]),
         ("tar", "xz") => ("tar", vec!["xvJf"]),
-        ("tar", "gz") | (_,"tgz") => ("tar", vec!["xvzf"]),
+        ("tar", "gz") | (_, "tgz") => ("tar", vec!["xvzf"]),
         (_, "lzma") => ("unlzma", vec![]),
         (_, "bz2") => ("bunzip2", vec![]),
         (_, "rar") => ("unrar", vec!["x", "-ad"]),
@@ -45,5 +44,3 @@ fn main() -> std::io::Result<()> {
 
     Ok(())
 }
-
-
