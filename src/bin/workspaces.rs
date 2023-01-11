@@ -10,7 +10,12 @@ fn main() {
     for (idx, mon) in monitors.enumerate() {
         let mut bspc = std::process::Command::new("bspc");
         if let Some(name) = &mon.name() {
-            let mut args = vec!["monitor".to_string(), name.to_string(), "-d".to_string()];
+            let name = if name.contains(".") {
+                format!("%{name}").to_string()
+            } else {
+                name.to_string()
+            };
+            let mut args = vec!["monitor".to_string(), name, "-d".to_string()];
             if let Some(prime) = &prime {
                 let iter = WS_NAMES.into_iter();
                 if mon != *prime {
