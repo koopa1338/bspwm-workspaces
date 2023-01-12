@@ -26,6 +26,3 @@ required-features = ["extract"]
 
 [[bin]]
 name = "screenshot"
-
-[[bin]]
-name = "texcompile"
