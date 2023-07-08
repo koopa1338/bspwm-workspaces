@@ -4,14 +4,14 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-clap = { version = "4.0.32", features = ["derive"], optional = true }
-winit = { version = "0.27", default_features = false, features = [
+clap = { version = "4.3", features = ["derive"], optional = true }
+winit = { version = "0.28", default_features = false, features = [
     "x11",
 ], optional = true }
 
 [features]
 workspaces = ["winit"]
-extract = ["clap"]
+args = ["clap"]
 
 [[bin]]
 name = "workspaces"
@@ -22,7 +22,11 @@ name = "wpg_post"
 
 [[bin]]
 name = "extract"
-required-features = ["extract"]
+required-features = ["args"]
 
 [[bin]]
 name = "screenshot"
+
+[[bin]]
+name = "pulser"
+required-features = ["args"]
