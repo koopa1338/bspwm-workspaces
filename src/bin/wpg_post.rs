@@ -1,8 +1,8 @@
 use std::{fs, io::ErrorKind, path::Path};
 
-const CURRENT: &str = "/.config/wpg/.current";
+const CURRENT: &str = ".config/wpg/.current";
 const LIGHTDM: &str = "/usr/share/lightdm-webkit/themes/modern";
-const CACHE: &str = "/.cache/betterlockscreen/current";
+const CACHE: &str = ".cache/betterlockscreen/current";
 
 fn main() {
     let home = env!("HOME");
@@ -19,11 +19,15 @@ fn main() {
                 std::thread::spawn(move || {
                     fs::copy(cache.join("wall_blur.png"), lightdm.join("blur.png"))
                         .expect("error copying blurred wallpaper to lightdm");
-                }).join().expect("Thread error: copying blurred wallpaper to lightdm");
+                })
+                .join()
+                .expect("Thread error: copying blurred wallpaper to lightdm");
                 std::thread::spawn(|| {
                     fs::copy(current, lightdm.join("wall.png"))
                         .expect("error copying wallpaper to lightdm");
-                }).join().expect("Thread error: copying wallpaper to lightdm");
+                })
+                .join()
+                .expect("Thread error: copying wallpaper to lightdm");
             }
             Err(e) => {
                 if let ErrorKind::NotFound = e.kind() {
