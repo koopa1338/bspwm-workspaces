@@ -1,14 +1,14 @@
-use clap::Parser;
+use clap::{Command, FromArgMatches as _, Parser, Subcommand as _};
 
-#[derive(Parser)]
-#[command(author, version, about, long_about = None)]
-enum Commands {
-    VolumeInc(u8),
-    VolumeDec(u8),
+#[derive(Debug, Parser)]
+enum SubCommands {
+    VolumeInc { amount: u8 },
+    VolumeDec { amount: u8 },
     Mute,
     ToggleSink,
 }
 
+#[derive(Debug)]
 struct State {
     available_sinks: Vec<usize>,
     current_sink: usize,
@@ -26,25 +26,26 @@ impl State {
         }
     }
 
-    pub fn toggle_sink(&mut self){}
+    pub fn toggle_sink(&mut self) {}
 
-    pub fn toggle_mute(&mut self){}
+    pub fn toggle_mute(&mut self) {}
 
-    pub fn increase_volume(&mut self, amount: u8){}
+    pub fn increase_volume(&mut self, amount: u8) {}
 
-    pub fn decrease_volume(&mut self, amount: u8){}
-    
+    pub fn decrease_volume(&mut self, amount: u8) {}
+
     fn get_available_sinks() {}
-
-    fn get_volume_of_sink(_sink: usize) {}
-
-    fn get_mute_state_of_sink(_sink: usize) {}
 
     fn get_volume_of_sink(_sink: usize) {}
 }
 
 fn main() -> std::io::Result<()> {
-    let args = Commands::parse();
+    let cli = Command::new("Built CLI");
+    let cli = SubCommands::augment_subcommands(cli);
 
+    let matches = cli.get_matches();
+    let derived_subcommands = SubCommands::from_arg_matches(&matches)
+        .map_err(|err| err.exit())
+        .unwrap();
     Ok(())
 }

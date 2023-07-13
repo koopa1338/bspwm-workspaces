@@ -1,6 +1,9 @@
 use winit::event_loop::EventLoopBuilder;
 
+#[cfg(feature = "jap")]
 const WS_NAMES: [&str; 10] = ["一", "ニ", "三", "四", "五", "六", "七", "八", "九", "十"];
+#[cfg(not(feature = "jap"))]
+const WS_NAMES: [&str; 10] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 const SUFF: [&str; 10] = ["₀", "₁", "₂", "₃", "₄", "₅", "₆", "₇", "₈", "₉"];
 
 fn main() {

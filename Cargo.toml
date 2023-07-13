@@ -6,16 +6,18 @@ edition = "2021"
 [dependencies]
 clap = { version = "4.3", features = ["derive"], optional = true }
 winit = { version = "0.28", default_features = false, features = [
-    "x11",
+  "x11",
 ], optional = true }
 
 [features]
 workspaces = ["winit"]
 args = ["clap"]
+jap = []
 
 [[bin]]
 name = "workspaces"
 required-features = ["workspaces"]
+default-features = ["jap"]
 
 [[bin]]
 name = "wpg_post"
