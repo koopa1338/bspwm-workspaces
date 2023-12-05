@@ -5,14 +5,16 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.3", features = ["derive"], optional = true }
-winit = { version = "0.28", default_features = false, features = [
+winit = { version = "0.29", default_features = false, features = [
   "x11",
 ], optional = true }
+pipewire = { version = "0.7", optional = true }
 
 [features]
-workspaces = ["winit"]
-args = ["clap"]
+workspaces = ["dep:winit"]
+args = ["dep:clap"]
 jap = []
+pipewire = ["dep:pipewire"]
 
 [[bin]]
 name = "workspaces"
@@ -31,4 +33,5 @@ name = "screenshot"
 
 [[bin]]
 name = "pulser"
-required-features = ["args"]
+default-features = ["args", "pipewire"]
+required-features = ["args", "pipewire"]
