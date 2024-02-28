@@ -6,11 +6,10 @@ const WS_NAMES: [&str; 10] = ["一", "ニ", "三", "四", "五", "六", "七", "
 const WS_NAMES: [&str; 10] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 const SUFF: [&str; 10] = ["₀", "₁", "₂", "₃", "₄", "₅", "₆", "₇", "₈", "₉"];
 
-fn main() {
-    let event_loop = EventLoopBuilder::new().build();
-    let monitors = event_loop.available_monitors();
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let event_loop = EventLoopBuilder::new().build()?;
     let prime = event_loop.primary_monitor();
-    for (idx, mon) in monitors.enumerate() {
+    for (idx, mon) in event_loop.available_monitors().enumerate() {
         let mut bspc = std::process::Command::new("bspc");
         if let Some(name) = &mon.name() {
             let name = if name.contains(".") {
@@ -32,4 +31,6 @@ fn main() {
                 .expect("could not setup workspaces for {mon:#?}");
         }
     }
+
+    Ok(())
 }
